@@ -1,25 +1,35 @@
-var timer = document.querySelector('.timer');
-var isBreak = false;
+var audio = new Audio('audio/sound.mp3');
+//audio.play();
+const timer = document.querySelector('.timer');
+let isBreak = false;
 
 
 
-var initialSessionMin = 25,
+let initialSessionMin = 25,
     initialBreakMin = 5;
 
-var sessionMin = initialSessionMin,
+let sessionMin = initialSessionMin,
     breakMin = initialBreakMin,
     sec = 60;
 
-var timerHeight = document.querySelector('.timer_wrap').clientHeight;
-var h = 0;
-var fillStep = 0;
-fillStep = timerHeight/(sessionMin*60);
+let timerHeight = document.querySelector('.timer_wrap').clientHeight;
+let h = 0;
+let fillStep = 0;
 
 
-    timer.innerHTML = sessionMin + '.00';
+function calcFillStep(){
+    if(isBreak){
+        fillStep = timerHeight / (breakMin * 60);
+    }
+    else{
+      fillStep = timerHeight / (sessionMin * 60);  
+    }
+}
+calcFillStep();
+timer.innerHTML = sessionMin + '.00';
 
 //min--;
-var lengthControlButton = document.querySelectorAll('.length_control');
+let lengthControlButton = document.querySelectorAll('.length_control');
 
 lengthControlButton.forEach(function (btn) {
     btn.addEventListener('click', function () {
@@ -46,24 +56,24 @@ lengthControlButton.forEach(function (btn) {
             btn.closest('.timer_block').querySelector('.timer_length').innerHTML = breakMin + '.00';
             initialBreakMin = breakMin;
         }
-        fillStep = timerHeight/(sessionMin*60);
+        fillStep = timerHeight / (sessionMin * 60);
     });
 });
 
 
 
-function countdown() {
+const countdown = () => {
     h += fillStep;
-    
-    if(sessionMin == initialSessionMin){
+
+    if (sessionMin == initialSessionMin) {
         sessionMin--;
     }
-    if(breakMin == initialBreakMin){
+    if (breakMin == initialBreakMin) {
         breakMin--;
     }
     if (isBreak) {
         document.querySelector(".RedFill").style.height = 0;
-        document.querySelector(".GreenFill").style.height = h+"px";
+        document.querySelector(".GreenFill").style.height = h + "px";
         if (sec == 0) {
             if (breakMin !== 0) {
                 breakMin--;
@@ -79,7 +89,7 @@ function countdown() {
     }
     else {
         document.querySelector(".GreenFill").style.height = 0;
-        document.querySelector(".RedFill").style.height = h+"px";
+        document.querySelector(".RedFill").style.height = h + "px";
         if (sec == 0) {
             if (sessionMin !== 0) {
                 sessionMin--;
@@ -94,24 +104,29 @@ function countdown() {
         timer.innerHTML = sessionMin + '.' + sec;
     }
     sec--;
-}
+} ////end countdown
 
-function resetTimer() {
+const resetTimer = () => {
+    audio.play();
+
     sessionMin = initialSessionMin;
     breakMin = initialBreakMin;
-}
-////intervals
-var interval;
+    calcFillStep();
+} ////end reset timer
 
-var stopped = true;
+
+////intervals
+let interval;
+
+let stopped = true;
 document.querySelector('.timer_wrap').addEventListener('click', function () {
-    if(stopped == true){
+    if (stopped == true) {
         interval = setInterval(function () {
             countdown()
         }, 1000);
         stopped = false;
     }
-    else{
+    else {
         clearInterval(interval);
         stopped = true;
     }
