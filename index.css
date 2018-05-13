@@ -46,14 +46,19 @@ button:hover{
     cursor: pointer;
     transition: all .5s;
 }
-.fill{
+.GreenFill, .RedFill{
     position: absolute;
     width: 100%;
     height: 0;
-    background-color: rgb(243, 35, 35);
     bottom: 0;
     left: 0;
     z-index: -1;
+}
+.RedFill{
+    background-color: rgb(243, 35, 35);
+}
+.GreenFill{
+    background-color: #20DF46;
 }
 .timer_wrap:hover{
     box-shadow: 0 0 15px 2px #20DF46;

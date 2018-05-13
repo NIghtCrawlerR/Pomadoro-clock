@@ -54,8 +54,7 @@ lengthControlButton.forEach(function (btn) {
 
 function countdown() {
     h += fillStep;
-    console.log(h);
-    document.querySelector(".fill").style.height = h+"px";
+    
     if(sessionMin == initialSessionMin){
         sessionMin--;
     }
@@ -63,11 +62,14 @@ function countdown() {
         breakMin--;
     }
     if (isBreak) {
+        document.querySelector(".RedFill").style.height = 0;
+        document.querySelector(".GreenFill").style.height = h+"px";
         if (sec == 0) {
             if (breakMin !== 0) {
                 breakMin--;
             }
             else {
+                h = 0;
                 isBreak = false;
                 resetTimer();
             }
@@ -76,11 +78,14 @@ function countdown() {
         timer.innerHTML = breakMin + '.' + sec;
     }
     else {
+        document.querySelector(".GreenFill").style.height = 0;
+        document.querySelector(".RedFill").style.height = h+"px";
         if (sec == 0) {
             if (sessionMin !== 0) {
                 sessionMin--;
             }
             else {
+                h = 0;
                 isBreak = true;
                 resetTimer();
             }
