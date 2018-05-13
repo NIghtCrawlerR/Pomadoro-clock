@@ -1,0 +1,51 @@
+body{
+    background-color: #222;
+    color: #FFFF00;
+    font-size: 22px;
+    font-family: 'Open Sans', sans-serif;
+}
+span{
+    color: #fff;
+}
+button{
+    background-color: transparent;
+    border: 1px solid #2BFFEF;
+    outline: none;
+    color: #fff;
+    padding: 20px 10px;
+    cursor: pointer;
+    transition: all .5s;
+}
+button:hover{
+    box-shadow: 0 0 30px 0px #2BFFEF;
+}
+.wrap{
+    width: 610px;
+    margin: 0 auto;
+}
+.timer_block{
+    width: 300px;
+    display: inline-block;
+    text-align: center
+}
+.button_group{
+    width: 300px;
+    margin: 0 auto
+}
+.button_group button{
+    width: 130px;
+    margin: 20px 5px
+}
+.timer_wrap{
+    margin: 0 auto;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    border: 4px solid;
+    text-align: center;
+}
+.timer_wrap span{
+    font-size: 46px;
+    padding: 116px 0;
+    display: block;
+}
