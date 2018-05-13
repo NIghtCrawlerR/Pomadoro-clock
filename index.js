@@ -1,6 +1,8 @@
 var timer = document.querySelector('.timer');
 var isBreak = false;
 
+
+
 var initialSessionMin = 25,
     initialBreakMin = 5;
 
@@ -8,8 +10,13 @@ var sessionMin = initialSessionMin,
     breakMin = initialBreakMin,
     sec = 60;
 
+var timerHeight = document.querySelector('.timer_wrap').clientHeight;
+var h = 0;
+var fillStep = 0;
+fillStep = timerHeight/(sessionMin*60);
 
 
+    timer.innerHTML = sessionMin + '.00';
 
 //min--;
 var lengthControlButton = document.querySelectorAll('.length_control');
@@ -25,6 +32,8 @@ lengthControlButton.forEach(function (btn) {
                 sessionMin--;
             }
             btn.closest('.timer_block').querySelector('.timer_length').innerHTML = sessionMin + '.00';
+            timer.innerHTML = sessionMin + '.00';
+            initialSessionMin = sessionMin;
         }
         else {
             if (btn.classList[0] == 'plus') {
@@ -35,15 +44,24 @@ lengthControlButton.forEach(function (btn) {
                 breakMin--;
             }
             btn.closest('.timer_block').querySelector('.timer_length').innerHTML = breakMin + '.00';
+            initialBreakMin = breakMin;
         }
-
+        fillStep = timerHeight/(sessionMin*60);
     });
 });
 
 
 
 function countdown() {
-    console.log(isBreak)
+    h += fillStep;
+    console.log(h);
+    document.querySelector(".fill").style.height = h+"px";
+    if(sessionMin == initialSessionMin){
+        sessionMin--;
+    }
+    if(breakMin == initialBreakMin){
+        breakMin--;
+    }
     if (isBreak) {
         if (sec == 0) {
             if (breakMin !== 0) {
@@ -79,18 +97,6 @@ function resetTimer() {
 }
 ////intervals
 var interval;
-
-// function stop() {
-//     clearInterval(interval);
-// }
-
-// var start = document.querySelector('.start');
-
-// start.addEventListener('click', function () {
-//     interval = setInterval(function () {
-//         countdown()
-//     }, 1000);
-// });
 
 var stopped = true;
 document.querySelector('.timer_wrap').addEventListener('click', function () {
